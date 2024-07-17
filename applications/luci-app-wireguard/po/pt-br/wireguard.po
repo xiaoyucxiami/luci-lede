@@ -71,3 +71,6 @@ msgstr "mais de um dia atrás"
 
 msgid "s ago"
 msgstr "segundos atrás"
+
+msgid "Description"
+msgstr "Descrição"

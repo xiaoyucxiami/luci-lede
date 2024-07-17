@@ -7,9 +7,9 @@ function index()
 	end
 
 	local page
-	page = entry({"admin", "services", "msd_lite"}, cbi("msd_lite"), _("MultiSD_Lite"), 60)
+	page = entry({"admin", "network", "msd_lite"}, cbi("msd_lite"), _("MultiSD_Lite"), 60)
 	page.dependent = true
-	page = entry({"admin", "services", "msd_lite", "status"}, call("act_status"))
+	page = entry({"admin", "network", "msd_lite", "status"}, call("act_status"))
 	page.leaf = true
 end
 

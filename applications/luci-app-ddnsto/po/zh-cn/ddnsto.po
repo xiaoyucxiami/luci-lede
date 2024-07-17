@@ -1,5 +1,5 @@
 msgid "DDNS.to"
-msgstr "DDNS.to内网穿透"
+msgstr "内网穿透"
 
 msgid "Running state"
 msgstr "运行状态"

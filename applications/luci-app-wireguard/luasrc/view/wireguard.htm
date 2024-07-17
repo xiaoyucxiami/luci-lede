@@ -4,64 +4,85 @@
 -%>
 
 <%
-  local data = { }
-  local last_device = ""
+local data = {}
+local last_device = ""
 
-  local wg_dump = io.popen("wg show all dump")
-  if wg_dump then
-    local line
-    for line in wg_dump:lines() do
-      local line = string.split(line, "\t")
-      if not (last_device == line[1]) then
-        last_device = line[1]
-        data[line[1]] = {
-          name                 = line[1],
-          public_key           = line[3],
-          listen_port          = line[4],
-          fwmark               = line[5],
-          peers                = { }
-        }
-      else
-        local peer = {
-          public_key           = line[2],
-          endpoint             = line[4],
-          allowed_ips          = { },
-          latest_handshake     = line[6],
-          transfer_rx          = line[7],
-          transfer_tx          = line[8],
-          persistent_keepalive = line[9]
-        }
-        if not (line[4] == '(none)') then
-          for ipkey, ipvalue in pairs(string.split(line[5], ",")) do
-            if #ipvalue > 0 then
-              table.insert(peer['allowed_ips'], ipvalue)
-            end
+local wg_dump = io.popen("wg show all dump")
+if wg_dump then
+  local line
+  for line in wg_dump:lines() do
+    local line = string.split(line, "\t")
+    if not (last_device == line[1]) then
+      last_device = line[1]
+      data[line[1]] = {
+        name = line[1],
+        public_key = line[3],
+        listen_port = line[4],
+        fwmark = line[5],
+        peers = {}
+      }
+    else
+      local peer = {
+        public_key = line[2],
+        endpoint = line[4],
+        allowed_ips = {},
+        latest_handshake = line[6],
+        transfer_rx = line[7],
+        transfer_tx = line[8],
+        persistent_keepalive = line[9]
+      }
+      if not (line[4] == '(none)') then
+        for ipkey, ipvalue in pairs(string.split(line[5], ",")) do
+          if #ipvalue > 0 then
+            table.insert(peer['allowed_ips'], ipvalue)
           end
         end
-        table.insert(data[line[1]].peers, peer)
       end
+      table.insert(data[line[1]].peers, peer)
     end
   end
+end
 
-  if luci.http.formvalue("status") == "1" then
-    luci.http.prepare_content("application/json")
-    luci.http.write_json(data)
-    return
+local cur = uci.cursor()
+for ikey, iface in pairs(data) do
+  for pkey, peer in pairs(iface.peers) do
+    local desc = ""
+    cur:foreach("network", "wireguard_" .. ikey, function(s)
+      local key, value, tmp_desc, pub_key
+      for key, value in pairs(s) do
+        if key == "description" then
+          tmp_desc = value
+        end
+        if value == peer.public_key then
+          pub_key = value
+        end
+        if pub_key and tmp_desc then
+          desc = ': ' .. tmp_desc
+        end
+      end
+    end)
+    peer.description = desc
   end
+end
+
+if luci.http.formvalue("status") == "1" then
+  luci.http.prepare_content("application/json")
+  luci.http.write_json(data)
+  return
+end
 -%>
 
 <%+header%>
 
 <script type="text/javascript" src="<%=resource%>/cbi.js"></script>
 <script type="text/javascript">//<![CDATA[
-
   function bytes_to_str(bytes) {
     bytes = parseFloat(bytes);
     if (bytes < 1) { return "0 B"; }
     var sizes = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'];
     var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-  };
+  }
 
   function timestamp_to_str(timestamp) {
     if (timestamp < 1) {
@@ -114,7 +135,11 @@
       for (var i = 0, ilen = iface.peers.length; i < ilen; i++) {
         var peer = iface.peers[i];
         var s = String.format(
-          '<strong><%:Public Key%>: </strong>%s',
+          '<strong><%:Description%>: </strong>%s',
+          peer.description
+        );
+        s += String.format(
+          '<br /><strong><%:Public Key%>: </strong>%s',
           peer.public_key
         );
         if (peer.endpoint != '(none)') {
@@ -157,7 +182,7 @@
   });
 //]]></script>
 
-<h2>WireGuard Status</h2>
+<h2><%:WireGuard Status%></h2>
 
 <fieldset class="cbi-section">
 <%-
@@ -183,7 +208,7 @@ for ikey, iface in pairs(data) do
   for pkey, peer in pairs(iface.peers) do
     -%>
     <tr>
-      <td width="33%" style="vertical-align:top"><%:Peer%></td>
+      <td width="33%" style="vertical-align:top"><div class="td" style="text-align: left; vertical-align:top"><%:Peer%><%=peer.description%></div></td>
       <td>
         <table>
           <tr>

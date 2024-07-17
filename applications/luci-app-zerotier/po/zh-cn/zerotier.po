@@ -15,3 +15,6 @@ msgstr "基本设置"
 
 msgid "Interface Info"
 msgstr "接口信息"
+
+msgid "ZeroTier"
+msgstr "零层隧道"

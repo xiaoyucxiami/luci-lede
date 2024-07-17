@@ -72,3 +72,6 @@ msgstr "1日以上前"
 
 msgid "s ago"
 msgstr "秒前"
+
+msgid "Description"
+msgstr "描述"

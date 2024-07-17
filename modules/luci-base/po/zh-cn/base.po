@@ -2680,7 +2680,7 @@ msgid "Rebind protection"
 msgstr "重绑定保护"
 
 msgid "Reboot"
-msgstr "重启"
+msgstr "重启设备"
 
 msgid "Rebooting..."
 msgstr "重启中..."

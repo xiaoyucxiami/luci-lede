@@ -1,21 +1,21 @@
-# Copyright (C) 2020 Openwrt.org
-#
-# This is a free software, use it under GNU General Public License v3.0.
-#
-# Created By ImmortalWrt
-# https://github.com/project-openwrt
-
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-gost
-PKG_VERSION:=1.0
-PKG_RELEASE:=1
 LUCI_TITLE:=LuCI support for Gost
-LUCI_DEPENDS:=+gost
+LUCI_DEPENDS:=+gost +luci-compat
 LUCI_PKGARCH:=all
+POFILES_DIR:=$(CURDIR)/po
 
-PKG_MAINTAINER:=ImmortalWrt
+# PKG_MAINTAINER:=ImmortalWrt
 
-include ../../luci.mk
+define Package/luci-i18n-gost-zh-cn
+  SECTION:=luci
+  CATEGORY:=LuCI
+  SUBMENU:=3. Applications
+  TITLE:=LuCI support for gost (Chinese)
+  DEPENDS:=+luci-app-gost
+endef
+
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

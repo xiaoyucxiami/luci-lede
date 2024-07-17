@@ -60,3 +60,7 @@ msgstr "över en dag sedan"
 
 msgid "s ago"
 msgstr "s sedan"
+
+msgid "Description"
+msgstr "Beskrivning"
+

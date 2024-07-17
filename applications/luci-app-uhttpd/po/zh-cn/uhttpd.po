@@ -183,7 +183,7 @@ msgid "a.k.a CommonName"
 msgstr "a.k.a CommonName"
 
 msgid "uHTTPd"
-msgstr "uHTTPd"
+msgstr "页面服务"
 
 msgid "uHTTPd Self-signed Certificate Parameters"
 msgstr "uHTTPd 自签名证书参数"

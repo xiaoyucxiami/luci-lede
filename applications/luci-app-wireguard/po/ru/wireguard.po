@@ -72,3 +72,6 @@ msgstr "более суток назад"
 
 msgid "s ago"
 msgstr "секунду назад"
+
+msgid "Description"
+msgstr "Описание"

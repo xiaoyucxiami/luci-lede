@@ -2,9 +2,9 @@ module("luci.controller.eqosplus", package.seeall)
 -- Copyright 2022-2023 sirpdboy <herboy2008@gmail.com>
 function index()
     if not nixio.fs.access("/etc/config/eqosplus") then return end
-    entry({"admin", "control"}, firstchild(), "Control", 44).dependent = false
-    entry({"admin", "control", "eqosplus"}, cbi("eqosplus"), _("Eqosplus"), 10).dependent =true
-    entry({"admin", "control", "eqosplus", "status"}, call("act_status")).leaf = true
+    entry({"admin", "network"}, firstchild(), "Network", 44).dependent = false
+    entry({"admin", "network", "eqosplus"}, cbi("eqosplus"), _("Eqosplus"), 99).dependent =true
+    entry({"admin", "network", "eqosplus", "status"}, call("act_status")).leaf = true
 end
 
 function act_status()

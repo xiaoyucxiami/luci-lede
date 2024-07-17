@@ -1,5 +1,5 @@
 a = Map("zerotier")
-a.title = translate("ZeroTier")
+a.title = translate("零层隧道")
 a.description = translate("Zerotier is an open source, cross-platform and easy to use virtual LAN")
 
 a:section(SimpleSection).template  = "zerotier/zerotier_status"

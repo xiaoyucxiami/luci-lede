@@ -7,7 +7,7 @@ function index()
 		return
 	end
 
-	entry({"admin", "network", "socat"}, alias("admin", "network", "socat", "index"), _("Socat"), 100).dependent = true
+	entry({"admin", "network", "socat"}, alias("admin", "network", "socat", "index"), _("Socat"), 110).dependent = true
 	entry({"admin", "network", "socat", "index"}, cbi("socat/index")).leaf = true
 	entry({"admin", "network", "socat", "config"}, cbi("socat/config")).leaf = true
 	entry({"admin", "network", "socat", "status"}, call("act_status")).leaf = true

@@ -206,7 +206,11 @@ li {
 *
 ***************************/
 .login-page {
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 使页面高度为视口高度 */
+  background-color: var(--background-color); /* 你可以根据需要调整背景颜色 */
 }
 .login-page .video {
   position: absolute;
@@ -250,65 +254,39 @@ li {
   transition: all 0.5s;
 }
 .login-page .login-container {
-  position: absolute;
-  top: 15%;
-  left: calc(5% - 20px);
   display: flex;
   flex-direction: column;
-  -webkit-box-pack: center;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  position: relative; /* 修改为相对定位 */
   z-index: 2;
-  width: 420px;
-  box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 35px -5px;
-  margin-left: 5%;
-  background: transparent;
-/*
-  left: calc(45% - 210px);		##密码输入框处于剧中位置
-  height: 100%;
-  margin-left: 4.5rem;
-  min-height: 100%;
-*/
+  width: 100%;
+  max-width: 420px; /* 保持原有的最大宽度 */
+  padding: 20px; /* 添加一些内边距 */
+  /* box-shadow: rgba(0,0,0,0.75) 0 0 35px -5px; */
+  background-color: transparent;
+  border-radius: 8px; /* 添加圆角 */
+  margin: 0 20px; /* 增加左右外边距以防止在小屏幕上贴边 */
 }
-/*              ##原来的备份
-.login-page .login-container {
-  height: 100%;
-  margin-left: 4.5rem;
-  position: absolute;
-  top: 0px;
-  display: flex;
-  flex-direction: column;
-  -webkit-box-pack: center;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100%;
-  z-index: 2;
-  width: 420px;
-  box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 35px -5px;
-  margin-left: 5%;
-  background: transparent;
-}
-*/
 .login-page .login-container .login-form {
   display: flex;
   flex-direction: column;
-  -webkit-box-align: center;
   align-items: center;
-  position: absolute;
-  top: 0px;
   width: 100%;
-  min-height: 100%;
-  max-width: 420px;
-  background-color: #fff;
-  background-color: var(--white);
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: transparent;
+  -webkit-backdrop-filter: blur(var(--blur-radius));
+  backdrop-filter: blur(var(--blur-radius));
+  background-color: transparent;
 }
 .login-page .login-container .login-form .brand {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  margin: 50px auto 20px 120px;   /*原始值：margin: 50px auto 100px 50px;   */
-  color: #525461;
-  color: var(--default);
+  display:flex;
+  -webkit-box-align:center;
+  align-items:center;
+  margin:20px auto 20px;
+  color:#525461;
+  color:var(--default)
 }
 .login-page .login-container .login-form .brand .icon {
   width: 50px;
@@ -325,7 +303,7 @@ li {
 }
 .login-page .login-container .login-form .form-login {
   width: 100%;
-  padding: 20px 70px;   /*原始值：padding: 20px 50px;   */
+  padding: 20px 50px;   /*原始值：padding: 20px 50px;   */
   box-sizing: border-box;
 }
 .login-page .login-container .login-form .form-login .errorbox {
